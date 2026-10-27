@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071321">
+  <meta name="description" content="Custom Minecraft skins, reshades, and character designs by Cubic Studio. Pick a package and get an instant quote in Redmont Dollars.">
+  <title>Cubic Studio — Custom Minecraft Skins</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #040b14;
+      --panel: #091522;
+      --panel-raised: #0e2137;
+      --ink: #f3f8ff;
+      --muted: #9bb0c8;
+      --line: #1e3854;
+      --lime: #31d9f4;
+      --violet: #5aa4ff;
+      --orange: #8edcff;
+      --pixel: "Courier New", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      scroll-behavior: smooth;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: var(--bg); }
+    a { color: inherit; }
+    button, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { color: #11110f; background: var(--lime); }
+
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--lime); font: 700 11px/1.3 var(--pixel); letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; background: currentColor; }
+    .section { padding: 104px 0; }
+    .section-head { max-width: 620px; margin-bottom: 42px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { letter-spacing: -.055em; }
+    h2 { margin-bottom: 14px; font-size: clamp(34px, 5vw, 54px); line-height: 1.02; }
+    .lead { max-width: 560px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+
+    .site-header { position: relative; z-index: 2; border-bottom: 1px solid #ffffff12; }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.04em; }
+    .brand-mark { width: 70px; height: 73px; display: block; flex: 0 0 auto; border-radius: 8px; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 30px; }
+    .nav-links a { color: #d0cdc4; text-decoration: none; font-size: 13px; }
+    .nav-links a:hover { color: var(--lime); }
+    .nav-cta, .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 46px; padding: 0 20px; border: 1px solid var(--lime);
+      background: var(--lime); color: #171810; font-size: 13px; font-weight: 800;
+      text-decoration: none; transition: transform .18s ease, background .18s ease;
+    }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); background: #d5ff8a; }
+    .button.secondary { border-color: var(--line); background: transparent; color: var(--ink); }
+    .button.secondary:hover { border-color: var(--lime); color: var(--lime); }
+    .button .arrow { font-size: 18px; line-height: 0; }
+
+    .hero { position: relative; overflow: hidden; padding: 84px 0 96px; }
+    .hero::before {
+      position: absolute; inset: 0; content: ""; pointer-events: none; opacity: .2;
+      background-image: linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+      background-size: 44px 44px; mask-image: linear-gradient(to right, black, transparent 80%);
+    }
+    .hero-grid { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 54px; }
+    .hero h1 { max-width: 680px; margin: 22px 0 20px; font-size: clamp(52px, 7.7vw, 88px); line-height: .94; }
+    .hero h1 em { color: var(--lime); font-style: normal; }
+    .hero-copy > p { max-width: 490px; margin-bottom: 28px; color: var(--muted); font-size: 17px; line-height: 1.7; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { margin-top: 22px; color: #858277; font: 11px/1.6 var(--pixel); }
+    .art-stage {
+      position: relative; min-height: 410px; display: grid; place-items: center;
+      border: 1px solid #ffffff14; background:
+        radial-gradient(ellipse at 54% 48%, #b8a1ff22, transparent 43%),
+        linear-gradient(145deg, #24231f, #161613 68%);
+      box-shadow: 18px 18px 0 #c6f36b12;
+    }
+    .art-stage::before, .art-stage::after { content: ""; position: absolute; width: 14px; height: 14px; background: var(--lime); }
+    .art-stage::before { left: -7px; top: -7px; }
+    .art-stage::after { right: -7px; bottom: -7px; background: var(--violet); }
+    .pixel-hero { width: min(82%, 360px); height: auto; filter: drop-shadow(22px 22px 0 #10100e); }
+    .art-label { position: absolute; right: 20px; bottom: 18px; color: #aaa69a; font: 10px var(--pixel); letter-spacing: .08em; }
+    .float-tag { position: absolute; z-index: 1; padding: 10px 12px; border: 1px solid #ffffff24; background: #171714; font: 10px var(--pixel); }
+    .float-tag.one { top: 26px; left: -20px; color: var(--lime); }
+    .float-tag.two { bottom: 55px; left: 0; color: var(--violet); }
+
+    .ticker { border-block: 1px solid var(--line); overflow: hidden; }
+    .ticker-track { display: flex; justify-content: space-around; gap: 36px; padding: 17px 0; color: #bdb9ad; font: 10px var(--pixel); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
+    .ticker-track span::before { content: "✳"; margin-right: 10px; color: var(--lime); }
+
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .service-card { min-height: 206px; padding: 25px; border: 1px solid var(--line); background: var(--panel); }
+    .service-icon { width: 34px; height: 34px; display: grid; place-items: center; margin-bottom: 25px; border: 1px solid #c6f36b50; color: var(--lime); font: 15px var(--pixel); }
+    .service-card:nth-child(2) .service-icon, .service-card:nth-child(5) .service-icon { border-color: #b8a1ff60; color: var(--violet); }
+    .service-card:nth-child(3) .service-icon, .service-card:nth-child(6) .service-icon { border-color: #ffad7260; color: var(--orange); }
+    .service-card h3 { margin-bottom: 9px; font-size: 17px; letter-spacing: -.03em; }
+    .service-card p { margin-bottom: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .pricing { background: #171714; border-block: 1px solid #ffffff0c; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
+    .price-card { position: relative; display: flex; flex-direction: column; padding: 25px; border: 1px solid var(--line); background: var(--bg); }
+    .price-card.featured { border-color: var(--lime); }
+    .popular { position: absolute; top: -1px; right: 18px; padding: 7px 10px; background: var(--lime); color: #14150e; font: 700 9px var(--pixel); letter-spacing: .08em; text-transform: uppercase; }
+    .tier { margin: 0 0 11px; color: var(--muted); font: 10px var(--pixel); letter-spacing: .1em; text-transform: uppercase; }
+    .price-card h3 { min-height: 44px; margin: 0 0 14px; font-size: 18px; line-height: 1.3; letter-spacing: -.035em; }
+    .price { margin-bottom: 6px; color: var(--lime); font: 700 31px/1 var(--pixel); letter-spacing: -.08em; }
+    .price small { color: var(--muted); font: 11px var(--sans); letter-spacing: 0; }
+    .turnaround { margin: 0 0 21px; color: #918e83; font-size: 11px; }
+    .price-card ul { display: grid; gap: 11px; margin: 0 0 25px; padding: 18px 0 0; border-top: 1px solid var(--line); list-style: none; }
+    .price-card li { position: relative; padding-left: 16px; color: #c5c1b7; font-size: 12px; line-height: 1.5; }
+    .price-card li::before { position: absolute; left: 0; content: "↳"; color: var(--lime); }
+    .price-card .button { width: 100%; margin-top: auto; min-height: 42px; font-size: 11px; }
+    .currency-note { margin: 22px 0 0; color: #8c897e; font-size: 11px; }
+    .standalone-commission { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .7fr); gap: 30px; align-items: center; margin-top: 42px; padding-top: 38px; border-top: 1px solid var(--line); }
+    .standalone-commission h3 { margin: 14px 0 10px; font-size: 24px; letter-spacing: -.04em; }
+    .standalone-commission-copy p { max-width: 560px; margin-bottom: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .standalone-commission-action { padding: 22px; border: 1px solid var(--line); background: var(--bg); }
+    .standalone-price { margin: 0 0 7px; color: var(--lime); font: 700 24px/1.2 var(--pixel); }
+    .standalone-commission-action .turnaround { margin-bottom: 18px; }
+    .standalone-commission-action .button { width: 100%; }
+    .item-photo-field { margin: 22px 0 16px; }
+    .item-photo-field label { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 700; }
+    .item-photo-field input { width: 100%; color: var(--muted); font: 12px var(--sans); }
+    .item-photo-field input::file-selector-button { margin-right: 12px; padding: 10px 12px; border: 1px solid var(--line); background: var(--panel-raised); color: var(--ink); font: 700 11px var(--sans); cursor: pointer; }
+    .item-photo-help, .item-photo-status { color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .item-photo-help { margin: 8px 0 0; }
+    .item-photo-status { margin: 10px 0 0; }
+    .item-photo-previews { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; margin-top: 14px; }
+    .item-photo-preview { min-width: 0; margin: 0; }
+    .item-photo-preview img { display: block; width: 100%; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); object-fit: cover; }
+    .item-photo-preview figcaption { overflow: hidden; margin-top: 5px; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .item-photo-clear { min-height: 34px; margin-top: 10px; padding: 0 12px; font-size: 11px; }
+
+    .estimator-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; align-items: start; }
+    .form-panel, .quote-panel { border: 1px solid var(--line); background: var(--panel); }
+    .form-panel { padding: 30px; }
+    .field { margin-bottom: 24px; }
+    .field label, .field-label { display: block; margin-bottom: 10px; font-size: 12px; font-weight: 700; }
+    .field label span { margin-left: 5px; color: var(--muted); font-size: 11px; font-weight: 400; }
+    select {
+      width: 100%; min-height: 48px; padding: 0 14px; border: 1px solid #4b4940; border-radius: 0;
+      background: #11110f; color: var(--ink); font-size: 13px;
+    }
+    select:focus, button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+    .model-options { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .model-option { position: relative; }
+    .model-option input { position: absolute; opacity: 0; }
+    .model-option span { min-height: 48px; display: flex; align-items: center; padding: 0 14px; border: 1px solid #4b4940; color: #d4d0c7; cursor: pointer; font-size: 12px; }
+    .model-option input:checked + span { border-color: var(--lime); color: var(--lime); background: #c6f36b0c; }
+    .model-option input:focus-visible + span { outline: 2px solid var(--lime); outline-offset: 3px; }
+    .addons { display: grid; gap: 10px; }
+    .addon { display: flex; gap: 12px; align-items: flex-start; padding: 13px; border: 1px solid var(--line); cursor: pointer; }
+    .addon input { margin: 3px 0 0; accent-color: var(--lime); }
+    .addon-copy { flex: 1; }
+    .addon-copy strong { display: block; margin-bottom: 4px; font-size: 12px; }
+    .addon-copy small { color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .addon-price { color: var(--lime); font: 11px var(--pixel); white-space: nowrap; }
+    .addon.is-included { opacity: .6; cursor: not-allowed; }
+    .quote-panel { position: sticky; top: 20px; padding: 28px; }
+    .quote-title { margin-bottom: 5px; color: var(--muted); font: 10px var(--pixel); letter-spacing: .1em; text-transform: uppercase; }
+    .quote-total { margin: 0 0 7px; color: var(--lime); font: 700 clamp(34px, 5vw, 48px)/1.1 var(--pixel); letter-spacing: -.08em; }
+    .quote-total small { color: var(--muted); font: 11px var(--sans); letter-spacing: 0; }
+    .quote-hint { color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .quote-lines { display: grid; gap: 11px; margin: 23px 0; padding: 18px 0; border-block: 1px solid var(--line); }
+    .quote-line { display: flex; justify-content: space-between; gap: 12px; color: #cac6bb; font-size: 12px; }
+    .quote-line span:last-child { color: var(--ink); white-space: nowrap; }
+    .quote-panel .button { width: 100%; margin-bottom: 10px; }
+    .quote-panel .button.secondary { margin-bottom: 0; }
+    .toast { min-height: 17px; margin: 11px 0 0; color: var(--lime); font-size: 11px; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; counter-reset: steps; }
+    .step { position: relative; min-height: 188px; padding: 25px; border-top: 1px solid var(--line); counter-increment: steps; }
+    .step::before { content: "0" counter(steps); display: block; margin-bottom: 29px; color: var(--lime); font: 12px var(--pixel); }
+    .step h3 { margin-bottom: 10px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    .final-cta { padding: 72px 0; border-block: 1px solid var(--line); background: linear-gradient(110deg, #c6f36b0c, transparent 60%); }
+    .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 35px; }
+    .cta-inner h2 { margin: 12px 0 9px; font-size: clamp(32px, 4vw, 46px); }
+    .cta-inner p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    footer { padding: 25px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #888579; font-size: 11px; }
+    .footer-inner a { text-decoration: none; }
+    .footer-inner a:hover { color: var(--lime); }
+    .footer-brand { color: var(--ink); font-weight: 800; }
+
+    @media (max-width: 820px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+      .hero { padding-top: 62px; }
+      .hero-copy { max-width: 650px; }
+      .art-stage { min-height: 360px; }
+      .services-grid, .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .standalone-commission { grid-template-columns: 1fr; gap: 20px; }
+      .estimator-grid { grid-template-columns: 1fr; }
+      .quote-panel { position: static; }
+      .section { padding: 78px 0; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 32px, 1120px); }
+      .nav { min-height: 68px; }
+      .nav-links { display: none; }
+      .nav-cta { min-height: 40px; padding-inline: 12px; font-size: 11px; }
+      .hero { padding: 52px 0 64px; }
+      .hero h1 { font-size: clamp(48px, 15vw, 72px); }
+      .hero-copy > p { font-size: 15px; }
+      .hero-actions .button { flex: 1; padding-inline: 12px; font-size: 11px; }
+      .art-stage { min-height: 300px; }
+      .float-tag.one { left: -7px; }
+      .float-tag.two { left: -5px; }
+      .section { padding: 66px 0; }
+      .section-head { margin-bottom: 28px; }
+      .services-grid, .pricing-grid, .steps { grid-template-columns: 1fr; }
+      .service-card { min-height: unset; }
+      .service-icon { margin-bottom: 18px; }
+      .price-card h3 { min-height: unset; }
+      .form-panel, .quote-panel { padding: 21px; }
+      .addon { padding: 11px; }
+      .addon-price { font-size: 10px; }
+      .cta-inner, .footer-inner { align-items: flex-start; flex-direction: column; }
+      .cta-inner .button { width: 100%; }
+      .footer-inner { gap: 10px; }
+      .ticker-track { justify-content: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+    body { background: radial-gradient(ellipse at 78% 7%, #0b397014, transparent 33%), var(--bg); }
+    ::selection { color: #061522; background: var(--lime); }
+    .site-header { position: sticky; top: 0; border-color: #c6e7ff12; background: #040b14ef; backdrop-filter: blur(18px); }
+    .nav { min-height: 74px; }
+    .brand { gap: 12px; letter-spacing: .02em; font-size: 12px; }
+    .nav-links { gap: 26px; }
+    .nav-links a { color: #afc2d9; transition: color .18s ease; }
+    .nav-links a:hover { color: var(--lime); }
+    .nav-cta, .button { border-radius: 9px; box-shadow: 0 8px 24px #23bce51a; }
+    .nav-cta:hover, .button:hover { background: #78ebff; box-shadow: 0 12px 30px #23bce530; }
+    .button.secondary { box-shadow: none; }
+    .button.secondary:hover { background: #31d9f410; }
+    .hero { padding-top: 90px; }
+    .hero::before { opacity: .14; background-image: linear-gradient(#b9ddff10 1px, transparent 1px), linear-gradient(90deg, #b9ddff10 1px, transparent 1px); }
+    .hero h1 em { color: #46dff7; background: linear-gradient(100deg, #55e5f8, #70aaff); background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-copy > p { color: #a8bbd0; }
+    .hero-note { color: #829db8; }
+    .art-stage {
+      overflow: hidden; border: 1px solid #43bde530; border-radius: 18px;
+      background: radial-gradient(ellipse at 52% 44%, #1675b71c, transparent 46%), linear-gradient(145deg, #0b1c2d, #050d16 72%);
+      box-shadow: 0 22px 70px #020b1680, 0 0 0 1px #ffffff06 inset;
+    }
+    .art-stage::before, .art-stage::after { width: 10px; height: 10px; border-radius: 3px; background: var(--lime); }
+    .art-stage::after { background: var(--violet); }
+    .pixel-hero { filter: drop-shadow(20px 24px 0 #020b1670); }
+    .float-tag { border-color: #4ac7e83b; border-radius: 7px; background: #071321ed; }
+    .float-tag.one, .float-tag.two { left: 16px; }
+    .art-label { color: #a2bad2; }
+    .ticker { border-color: var(--line); background: #060f1a; }
+    .ticker-track { color: #a8bbd0; }
+    .ticker-track span::before { color: var(--lime); }
+    .section-head .lead { color: #a8bbd0; }
+    .service-card {
+      min-height: 220px; border-color: #26415d; border-radius: 14px;
+      background: linear-gradient(145deg, #0b1928, #060f1a);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .service-card:hover { transform: translateY(-4px); border-color: #35cbe8a3; box-shadow: 0 18px 36px #020b1640; }
+    .service-icon { border-radius: 9px; border-color: #31d9f45c; background: #31d9f40d; }
+    .service-card:nth-child(2) .service-icon, .service-card:nth-child(5) .service-icon { border-color: #5aa4ff70; color: #72b4ff; }
+    .service-card:nth-child(3) .service-icon, .service-card:nth-child(6) .service-icon { border-color: #8edcff70; color: #8edcff; }
+    .service-card p { color: #9bb0c8; }
+    .pricing { border-color: #1e3854; background: linear-gradient(180deg, #07111d, #040b14); }
+    .price-card { border-color: #26415d; border-radius: 14px; background: linear-gradient(150deg, #0b1928, #060f1a); }
+    .price-card.featured { border-color: #31d9f4; box-shadow: 0 0 0 1px #31d9f422, 0 18px 42px #02101f70; }
+    .popular { border-radius: 0 12px 0 10px; background: #31d9f4; color: #061522; }
+    .price { color: #55e1f7; }
+    .price-card li { color: #c4d3e2; }
+    .price-card li::before { color: #55e1f7; }
+    .turnaround, .currency-note { color: #91a7bf; }
+    .form-panel, .quote-panel { border-color: #26415d; border-radius: 15px; background: linear-gradient(145deg, #0b1928, #060f1a); }
+    select { border-color: #36516d; border-radius: 8px; background: #081725; }
+    .model-option span { border-color: #36516d; border-radius: 8px; background: #0a1929; }
+    .model-option input:checked + span { border-color: #31d9f4; color: #65e5f7; background: #31d9f411; }
+    .addon { border-color: #2a4562; border-radius: 9px; background: #071321; transition: border-color .18s ease, background .18s ease; }
+    .addon:has(input:checked) { border-color: #31d9f4a3; background: #31d9f40b; }
+    .addon-copy small { color: #9bb0c8; }
+    .addon-price { color: #64e4f5; }
+    .quote-total { color: #55e1f7; }
+    .quote-hint, .quote-line { color: #a8bbd0; }
+    .quote-line span:last-child { color: #e9f3ff; }
+    .toast { color: #70e8f7; }
+    .step { border-color: #2a4562; }
+    .step::before { color: #54dff4; }
+    .step p { color: #9bb0c8; }
+    .final-cta { border-color: #24415e; background: radial-gradient(ellipse at 20% 50%, #116cb32a, transparent 55%), #0a1929; }
+    .final-cta .lead, .cta-inner p { color: #a8bbd0; }
+    footer { background: #071321; }
+    .footer-inner { color: #90a7c0; }
+    .footer-inner a:hover { color: #5be3f6; }
+    @media (max-width: 560px) {
+      .nav { min-height: 66px; }
+      .brand { font-size: 11px; }
+      .brand-mark { width: 58px; height: 61px; }
+      .hero { padding-top: 58px; }
+      .service-card { min-height: unset; }
+    }
+    @media (min-width: 821px) {
+      .nav { min-height: 90px; }
+      .brand-mark { width: 84px; height: 84px; }
+      .hero { padding-top: 104px; padding-bottom: 112px; }
+    }
+    @media (min-width: 1200px) {
+      .wrap { width: min(1280px, calc(100% - 80px)); }
+      .nav-links { gap: 34px; }
+      .hero-grid { grid-template-columns: 1.08fr .92fr; gap: 72px; }
+      .art-stage { min-height: 500px; }
+      .pixel-hero { width: min(82%, 410px); }
+      .section { padding-block: 120px; }
+      .services-grid, .pricing-grid { gap: 20px; }
+      .service-card, .price-card { padding: 30px; }
+      .form-panel, .quote-panel { padding: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Cubic Studio home">
+        <img class="brand-mark" src="cubic-studio-logo.png" alt="Cubic Studio logo" width="509" height="509">
+      </a>
+      <div class="nav-links">
+        <a href="#services">What I make</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#estimator">Quote builder</a>
+        <a href="#process">How it works</a>
+      </div>
+      <a class="nav-cta" href="https://discord.com/invite/rEa7htJxbq" target="_blank" rel="noopener noreferrer">Let’s talk <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <span class="eyebrow">Custom Minecraft skins</span>
+          <h1>Your character,<br><em>pixel perfect.</em></h1>
+          <p>Custom skins, thoughtful reshades, and original character designs—made to feel like you, block by block.</p>
+          <div class="hero-actions">
+            <a class="button" href="#estimator">Build your quote <span class="arrow" aria-hidden="true">↘</span></a>
+            <a class="button secondary" href="#pricing">Explore packages</a>
+          </div>
+          <p class="hero-note">CLASSIC 4PX + SLIM 3PX &nbsp;·&nbsp; PREVIEWS BEFORE FINAL DELIVERY</p>
+        </div>
+        <div class="art-stage" aria-label="Pixel art character preview">
+          <span class="float-tag one">01 / YOUR IDEA</span>
+          <span class="float-tag two">MADE TO PLAY</span>
+          <svg class="pixel-hero" viewBox="0 0 256 256" role="img" aria-labelledby="sprite-title">
+            <title id="sprite-title">Original pixel-art character wearing a violet jacket</title>
+            <rect x="74" y="24" width="108" height="80" fill="#b87b55"/>
+            <rect x="74" y="24" width="108" height="18" fill="#14243c"/>
+            <rect x="74" y="40" width="24" height="24" fill="#14243c"/>
+            <rect x="98" y="40" width="22" height="12" fill="#24466b"/>
+            <rect x="120" y="42" width="22" height="18" fill="#14243c"/>
+            <rect x="142" y="38" width="22" height="16" fill="#24466b"/>
+            <rect x="164" y="42" width="18" height="22" fill="#14243c"/>
+            <rect x="86" y="66" width="20" height="10" fill="#182d48"/>
+            <rect x="150" y="66" width="20" height="10" fill="#182d48"/>
+            <rect x="106" y="68" width="14" height="12" fill="#f2eee0"/>
+            <rect x="150" y="68" width="14" height="12" fill="#f2eee0"/>
+            <rect x="112" y="72" width="8" height="8" fill="#313a43"/>
+            <rect x="150" y="72" width="8" height="8" fill="#313a43"/>
+            <rect x="120" y="80" width="26" height="8" fill="#87553e"/>
+            <rect x="112" y="88" width="40" height="8" fill="#a36250"/>
+            <rect x="80" y="104" width="96" height="92" fill="#2867b0"/>
+            <rect x="66" y="110" width="14" height="70" fill="#b87b55"/>
+            <rect x="176" y="110" width="14" height="70" fill="#b87b55"/>
+            <rect x="66" y="110" width="14" height="15" fill="#38e0ff"/>
+            <rect x="176" y="110" width="14" height="15" fill="#38e0ff"/>
+            <rect x="80" y="104" width="18" height="82" fill="#4389d5"/>
+            <rect x="158" y="104" width="18" height="82" fill="#4389d5"/>
+            <rect x="98" y="104" width="60" height="88" fill="#174e91"/>
+            <rect x="102" y="112" width="12" height="12" fill="#38e0ff"/>
+            <rect x="142" y="112" width="12" height="12" fill="#38e0ff"/>
+            <rect x="118" y="130" width="20" height="12" fill="#70baff"/>
+            <rect x="116" y="160" width="24" height="14" fill="#122b4a"/>
+            <rect x="88" y="196" width="36" height="38" fill="#243851"/>
+            <rect x="132" y="196" width="36" height="38" fill="#243851"/>
+            <rect x="84" y="224" width="44" height="14" fill="#38e0ff"/>
+            <rect x="128" y="224" width="44" height="14" fill="#38e0ff"/>
+            <rect x="88" y="192" width="36" height="8" fill="#b87b55"/>
+            <rect x="132" y="192" width="36" height="8" fill="#b87b55"/>
+            <rect x="46" y="74" width="8" height="8" fill="#38e0ff"/>
+            <rect x="202" y="55" width="10" height="10" fill="#70baff"/>
+            <rect x="194" y="178" width="7" height="7" fill="#8edcff"/>
+            <rect x="54" y="190" width="9" height="9" fill="#70baff"/>
+          </svg>
+          <span class="art-label">CUSTOM CHARACTER / NO. 001</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-label="Studio capabilities">
+      <div class="ticker-track wrap">
+        <span>Custom characters</span><span>Clean shading</span><span>Classic + slim</span><span>Preview &amp; edits</span>
+      </div>
+    </div>
+
+    <section class="section wrap" id="services">
+      <div class="section-head">
+        <span class="eyebrow">Made for your next world</span>
+        <h2>Small pixels.<br>Big personality.</h2>
+        <p class="lead">Bring a reference, a character, or just a half-formed idea. We’ll shape it into a skin that feels at home in-game.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card"><span class="service-icon" aria-hidden="true">✳</span><h3>Custom characters</h3><p>Anime, game, movie characters, original characters, and personal designs from your references.</p></article>
+        <article class="service-card"><span class="service-icon" aria-hidden="true">▧</span><h3>Skin edits &amp; reshades</h3><p>Give an existing skin a new palette, cleaner texture, richer lighting, and better definition.</p></article>
+        <article class="service-card"><span class="service-icon" aria-hidden="true">☼</span><h3>Seasonal &amp; roleplay</h3><p>Holiday looks, fantasy armor, themed outfits, and details for your next roleplay arc.</p></article>
+        <article class="service-card"><span class="service-icon" aria-hidden="true">▤</span><h3>Classic or slim</h3><p>Every package supports both 4px Classic (Steve) and 3px Slim (Alex) arm models.</p></article>
+        <article class="service-card"><span class="service-icon" aria-hidden="true">◈</span><h3>Layered details</h3><p>Hats, coats, boots, belts, sleeves, hair, and accessories with dimensional outer layers.</p></article>
+        <article class="service-card"><span class="service-icon" aria-hidden="true">↻</span><h3>Preview &amp; refine</h3><p>Check a preview before delivery and refine it with unlimited revisions.</p></article>
+      </div>
+    </section>
+
+    <section class="section pricing" id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">The commission menu</span>
+          <h2>Pick your pixel level.</h2>
+          <p class="lead">Start with a quick touch-up or go all-in on a custom character and wardrobe. Every package includes unlimited revisions and supports both arm models.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="price-card">
+            <p class="tier">01 / Quick refresh</p><h3>Basic Touch-Up &amp; Color Shift</h3>
+            <p class="price">$500 <small>RD</small></p><p class="turnaround">Unlimited revisions · 1–2 days</p>
+            <ul><li>Palette corrections and hue shifts</li><li>Eye or hair recolor on an existing skin</li><li>Clean shading; existing outer layer retained</li></ul>
+            <a class="button secondary" href="#estimator" data-package="basic">Choose this package</a>
+          </article>
+          <article class="price-card">
+            <p class="tier">02 / Texture upgrade</p><h3>Standard Reshade &amp; Texture Rework</h3>
+            <p class="price">$1,600 <small>RD</small></p><p class="turnaround">Unlimited revisions · 2–3 days</p>
+            <ul><li>Complete texture overhaul</li><li>Dynamic lighting and refined outfit detail</li><li>Full contrast and in-game vibrance</li></ul>
+            <a class="button secondary" href="#estimator" data-package="reshade">Choose this package</a>
+          </article>
+          <article class="price-card">
+            <p class="tier">03 / Themed look</p><h3>Seasonal &amp; Themed RP Variant</h3>
+            <p class="price">$2,500 <small>RD</small></p><p class="turnaround">Unlimited revisions · 3–4 days</p>
+            <ul><li>Holiday, fantasy, armor, or RP outfit</li><li>Dimensional clothing and accessories</li><li>Layered hats, coats, boots, belts, or sleeves</li></ul>
+            <a class="button secondary" href="#estimator" data-package="seasonal">Choose this package</a>
+          </article>
+          <article class="price-card featured">
+            <span class="popular">Fan favorite</span>
+            <p class="tier">04 / From-reference design</p><h3>Anime &amp; Character Recreation</h3>
+            <p class="price">$3,000 <small>RD</small></p><p class="turnaround">Unlimited revisions · 3–5 days</p>
+            <ul><li>Recreation from anime, game, comic, or film</li><li>High-detail 3D hair layering</li><li>Custom folds and directional lighting</li></ul>
+            <a class="button" href="#estimator" data-package="recreation">Choose this package</a>
+          </article>
+          <article class="price-card">
+            <p class="tier">05 / Your own character</p><h3>Full Custom Original Character</h3>
+            <p class="price">$4,000 <small>RD</small></p><p class="turnaround">Unlimited revisions · 4–6 days</p>
+            <ul><li>Bespoke design from moodboard, art, or lore</li><li>Master-tier layered shading</li><li>Custom fabric weaves and micro-textures</li></ul>
+            <a class="button secondary" href="#estimator" data-package="original">Choose this package</a>
+          </article>
+          <article class="price-card">
+            <p class="tier">06 / Two-skin bundle</p><h3>Two Custom Skins</h3>
+            <p class="price">$5,000 <small>RD</small></p><p class="turnaround">Unlimited revisions · 3–6 days</p>
+            <ul><li>Two custom Minecraft skins</li><li>Each skin designed from your references or ideas</li><li>Choose the Classic or Slim arm model for each skin</li></ul>
+            <a class="button secondary" href="#estimator" data-package="two-skins">Choose this package</a>
+          </article>
+          <article class="price-card">
+            <p class="tier">07 / The full wardrobe</p><h3>Deluxe Character Bundle &amp; Wardrobe</h3>
+            <p class="price">$5,000 <small>RD</small></p><p class="turnaround">Unlimited revisions · 2–4 days VIP</p>
+            <ul><li>One full OC skin + one alternate outfit</li><li>Accessory toggle layers</li><li>Dual Steve &amp; Alex outputs included</li></ul>
+            <a class="button secondary" href="#estimator" data-package="deluxe">Choose this package</a>
+          </article>
+        </div>
+        <p class="currency-note">All prices are in Redmont Dollars ($RD). Timelines are estimates and may vary with the scope of your idea.</p>
+        <div class="standalone-commission" id="standalone-items">
+          <div class="standalone-commission-copy">
+            <span class="eyebrow">Standalone commissions</span>
+            <h3>Custom items, made on their own.</h3>
+            <p>Commission a custom Minecraft item without ordering an outfit or character skin. Share your idea or reference to get a quote based on the item’s details and scope.</p>
+          </div>
+          <div class="standalone-commission-action">
+            <p class="standalone-price">Custom quote</p>
+            <p class="turnaround">Pricing and timing depend on the item</p>
+            <a class="button secondary" href="https://discord.gg/SsPg6dpmpB" target="_blank" rel="noopener noreferrer">Open Discord to create a ticket <span class="arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="estimator">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Your commission, your way</span>
+          <h2>Build an instant quote.</h2>
+          <p class="lead">Choose a package and any extras. You’ll get a live estimate in $RD—then send your idea over on Discord to get started.</p>
+        </div>
+        <div class="estimator-grid">
+          <form class="form-panel" id="quote-form">
+            <div class="field">
+              <label for="package">Choose a package</label>
+              <select id="package" name="package">
+                <option value="basic" data-price="500" data-name="Basic Touch-Up &amp; Color Shift">Basic Touch-Up &amp; Color Shift — $500 RD</option>
+                <option value="reshade" data-price="750" data-name="Standard Reshade &amp; Texture Rework">Standard Reshade &amp; Texture Rework — $750 RD</option>
+                <option value="seasonal" data-price="2500" data-name="Seasonal &amp; Themed RP Variant">Seasonal &amp; Themed RP Variant — $2,500 RD</option>
+                <option value="recreation" data-price="2500" data-name="Anime &amp; Character Recreation" selected>Anime &amp; Character Recreation — $2,500 RD</option>
+                <option value="original" data-price="2500" data-name="Full Custom Original Character">Full Custom Original Character — $2,500 RD</option>
+                <option value="two-skins" data-price="5000" data-name="Two Custom Skins">Two Custom Skins — $5,000 RD</option>
+                <option value="custom-item" data-price="5000" data-name="Custom Minecraft Item">Custom Minecraft Item — $5,000 RD</option>
+                <option value="deluxe" data-price="7000" data-name="Deluxe Character Bundle &amp; Wardrobe">Deluxe Character Bundle &amp; Wardrobe — $7,000 RD</option>
+              </select>
+            </div>
+            <div class="item-photo-field">
+              <label id="item-photo-label" for="item-photos">Add skin reference photos</label>
+              <input id="item-photos" type="file" accept="image/*" multiple aria-describedby="item-photo-help item-photo-status">
+              <p class="item-photo-help" id="item-photo-help">Choose up to 5 images to preview here. They stay in your browser. Copy all selected photos together as one combined image, then attach it in your Discord ticket.</p>
+              <p class="item-photo-status" id="item-photo-status" aria-live="polite">No photos selected.</p>
+              <div class="item-photo-previews" id="item-photo-previews" aria-label="Selected photo previews"></div>
+              <button class="button secondary item-photo-clear" id="copy-item-photos" type="button" hidden>Copy all photos</button>
+              <button class="button secondary item-photo-clear" id="clear-item-photos" type="button" hidden>Clear photos</button>
+            </div>
+            <fieldset class="field" data-skin-only style="border:0;padding:0">
+              <legend class="field-label">Arm model</legend>
+              <div class="model-options">
+                <label class="model-option"><input type="radio" name="model" value="Classic (4px)" checked><span>Classic / Steve · 4px</span></label>
+                <label class="model-option"><input type="radio" name="model" value="Slim (3px)"><span>Slim / Alex · 3px</span></label>
+              </div>
+            </fieldset>
+            <div class="field" data-skin-only>
+              <p class="field-label">Make it extra <span style="color:var(--muted);font-weight:400">(optional add-ons)</span></p>
+              <div class="addons">
+                <label class="addon"><input type="checkbox" name="addon" value="rush" data-price="600" data-name="24-hour rush delivery"><span class="addon-copy"><strong>24-hour rush delivery</strong><small>Priority queue and first preview within 24 hours</small></span><span class="addon-price">+$600</span></label>
+                <label class="addon" id="dual-addon"><input type="checkbox" name="addon" value="dual" data-price="500" data-name="Dual model export"><span class="addon-copy"><strong>Dual model export</strong><small>Both Classic 4px and Slim 3px PNGs</small></span><span class="addon-price">+$500</span></label>
+                <label class="addon"><input type="checkbox" name="addon" value="layering" data-price="400" data-name="Complex outer layer detailing"><span class="addon-copy"><strong>Complex outer layer detailing</strong><small>Extra depth for armor, wings, crowns, tails, or props</small></span><span class="addon-price">+$400</span></label>
+              </div>
+            </div>
+          </form>
+          <aside class="quote-panel" aria-label="Your quote">
+            <p class="quote-title">Estimated commission</p>
+            <p class="quote-total" id="quote-total" aria-live="polite">$3,000 <small>RD</small></p>
+            <p class="quote-hint">A starting estimate based on your selections. Final scope and timing can be confirmed in chat.</p>
+            <div class="quote-lines" id="quote-lines"></div>
+            <a class="button" href="https://discord.com/invite/rEa7htJxbq" target="_blank" rel="noopener noreferrer">Start on Discord <span class="arrow" aria-hidden="true">↗</span></a>
+            <button class="button secondary" id="copy-quote" type="button">Copy quote details</button>
+            <p class="toast" id="copy-status" role="status" aria-live="polite"></p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="process">
+      <div class="section-head">
+        <span class="eyebrow">Easy as 1, 2, 3</span>
+        <h2>From idea to in-game.</h2>
+        <p class="lead">You stay in the loop from the first reference to the final ready-to-upload PNG.</p>
+      </div>
+      <div class="steps">
+        <article class="step"><h3>Send your idea</h3><p>Share your references, moodboard, character lore, or the skin you’d like refreshed.</p></article>
+        <article class="step"><h3>Review your preview</h3><p>See the draft, share feedback, and use your included revisions to refine the details.</p></article>
+        <article class="step"><h3>Get your skin</h3><p>Once you’re happy, receive the finished PNG, ready for your chosen arm model.</p></article>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="cta-inner wrap">
+        <div><span class="eyebrow">Have a character in mind?</span><h2>Let’s make them yours.</h2><p>Bring the reference. We’ll bring the pixels.</p></div>
+        <a class="button" href="https://discord.com/invite/rEa7htJxbq" target="_blank" rel="noopener noreferrer">DM Cubic Studio <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-inner wrap">
+      <a class="footer-brand" href="#top">CUBIC STUDIO <span style="color:var(--lime)">✳</span></a>
+      <span>Custom Minecraft skins, made one pixel at a time.</span>
+      <a href="https://discord.com/invite/rEa7htJxbq" target="_blank" rel="noopener noreferrer">Find me on Discord ↗</a>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const form = document.getElementById("quote-form");
+      const packageSelect = document.getElementById("package");
+      const totalElement = document.getElementById("quote-total");
+      const linesElement = document.getElementById("quote-lines");
+      const dualAddon = document.querySelector('input[name="addon"][value="dual"]');
+      const dualLabel = document.getElementById("dual-addon");
+      const copyStatus = document.getElementById("copy-status");
+      const itemPhotoInput = document.getElementById("item-photos");
+      const itemPhotoLabel = document.getElementById("item-photo-label");
+      const itemPhotoPreviews = document.getElementById("item-photo-previews");
+      const itemPhotoStatus = document.getElementById("item-photo-status");
+      const copyItemPhotos = document.getElementById("copy-item-photos");
+      const clearItemPhotos = document.getElementById("clear-item-photos");
+      const maxItemPhotos = 5;
+      let itemPhotoUrls = [];
+      let quoteText = "";
+
+      const formatPrice = (value) => "$" + value.toLocaleString("en-US");
+
+      function clearItemPhotoPreviews() {
+        itemPhotoUrls.forEach((url) => URL.revokeObjectURL(url));
+        itemPhotoUrls = [];
+        itemPhotoPreviews.replaceChildren();
+      }
+
+      itemPhotoInput.addEventListener("change", () => {
+        clearItemPhotoPreviews();
+        const selectedImages = Array.from(itemPhotoInput.files);
+        const validImages = selectedImages.filter((file) => file.type.startsWith("image/"));
+        const imageFiles = validImages.slice(0, maxItemPhotos);
+        const rejectedCount = selectedImages.length - validImages.length;
+        const excessCount = validImages.length - imageFiles.length;
+        if (excessCount > 0) {
+          const limitedFiles = new DataTransfer();
+          imageFiles.forEach((file) => limitedFiles.items.add(file));
+          itemPhotoInput.files = limitedFiles.files;
+        }
+        itemPhotoStatus.textContent = imageFiles.length
+          ? `${imageFiles.length} photo${imageFiles.length === 1 ? "" : "s"} selected. Attach them in your Discord ticket.`
+          : "No photos selected.";
+        if (excessCount > 0) {
+          itemPhotoStatus.textContent += ` Only the first ${maxItemPhotos} photos were kept.`;
+        }
+        if (rejectedCount) {
+          itemPhotoStatus.textContent += ` ${rejectedCount} non-image file${rejectedCount === 1 ? " was" : "s were"} skipped.`;
+        }
+        clearItemPhotos.hidden = imageFiles.length === 0;
+        copyItemPhotos.hidden = imageFiles.length === 0;
+        imageFiles.forEach((file) => {
+          const url = URL.createObjectURL(file);
+          itemPhotoUrls.push(url);
+          const figure = document.createElement("figure");
+          figure.className = "item-photo-preview";
+          const image = document.createElement("img");
+          image.src = url;
+          image.alt = `Preview of ${file.name}`;
+          const caption = document.createElement("figcaption");
+          caption.textContent = file.name;
+          figure.append(image, caption);
+          itemPhotoPreviews.append(figure);
+        });
+      });
+
+      clearItemPhotos.addEventListener("click", () => {
+        itemPhotoInput.value = "";
+        clearItemPhotoPreviews();
+        itemPhotoStatus.textContent = "No photos selected.";
+        copyItemPhotos.hidden = true;
+        clearItemPhotos.hidden = true;
+      });
+
+      window.addEventListener("beforeunload", clearItemPhotoPreviews);
+
+      document.querySelectorAll(".price-card [data-package]").forEach((link) => {
+        const packageOption = Array.from(packageSelect.options)
+          .find((option) => option.value === link.dataset.package);
+        const priceElement = link.closest(".price-card").querySelector(".price");
+        const packagePrice = Number(packageOption && packageOption.dataset.price);
+        if (!packageOption || !priceElement || !Number.isFinite(packagePrice)) {
+          throw new Error(`Invalid package pricing for "${link.dataset.package}".`);
+        }
+        const currency = document.createElement("small");
+        currency.textContent = "RD";
+        priceElement.replaceChildren(
+          document.createTextNode(`${formatPrice(packagePrice)} `),
+          currency
+        );
+      });
+
+      function updateQuote() {
+        const selectedPackage = packageSelect.selectedOptions[0];
+        const packageName = selectedPackage.dataset.name;
+        const packagePrice = Number(selectedPackage.dataset.price);
+        const isCustomItem = packageSelect.value === "custom-item";
+        const model = isCustomItem ? "" : form.querySelector('input[name="model"]:checked').value;
+        const isDeluxe = packageSelect.value === "deluxe";
+        form.querySelectorAll("[data-skin-only]").forEach((field) => {
+          field.hidden = isCustomItem;
+        });
+        if (isCustomItem) {
+          form.querySelectorAll('input[name="addon"]').forEach((input) => {
+            input.checked = false;
+          });
+        }
+        itemPhotoLabel.textContent = isCustomItem
+          ? "Add item reference photos"
+          : "Add skin reference photos";
+        dualAddon.disabled = isDeluxe;
+        if (isDeluxe) dualAddon.checked = false;
+        dualLabel.classList.toggle("is-included", isDeluxe);
+        dualLabel.querySelector("small").textContent = isDeluxe
+          ? "Both arm models are already included in this package"
+          : "Both Classic 4px and Slim 3px PNGs";
+
+        const rows = [{ name: packageName, price: packagePrice }];
+        if (!isCustomItem) {
+          form.querySelectorAll('input[name="addon"]:checked').forEach((input) => {
+            rows.push({ name: input.dataset.name, price: Number(input.dataset.price) });
+          });
+        }
+        const total = rows.reduce((sum, row) => sum + row.price, 0);
+        totalElement.innerHTML = `${formatPrice(total)} <small>RD</small>`;
+        linesElement.replaceChildren();
+        rows.forEach((row) => {
+          const line = document.createElement("div");
+          line.className = "quote-line";
+          const label = document.createElement("span");
+          const price = document.createElement("span");
+          label.textContent = row.name;
+          price.textContent = `${formatPrice(row.price)} RD`;
+          line.append(label, price);
+          linesElement.append(line);
+        });
+        if (!isCustomItem) {
+          const modelLine = document.createElement("div");
+          modelLine.className = "quote-line";
+          const modelName = document.createElement("span");
+          const included = document.createElement("span");
+          modelName.textContent = "Arm model";
+          included.textContent = model;
+          modelLine.append(modelName, included);
+          linesElement.append(modelLine);
+        }
+        quoteText = [
+          "Cubic Studio commission estimate",
+          `Package: ${packageName} (${formatPrice(packagePrice)} RD)`,
+          ...(!isCustomItem ? [`Arm model: ${model}`] : []),
+          ...rows.slice(1).map((row) => `${row.name}: ${formatPrice(row.price)} RD`),
+          `Estimated total: ${formatPrice(total)} RD`,
+          "Final scope and timing to be confirmed with Cubic Studio."
+        ].join("\n");
+      }
+
+      form.addEventListener("change", updateQuote);
+      document.querySelectorAll("[data-package]").forEach((link) => {
+        link.addEventListener("click", () => {
+          packageSelect.value = link.dataset.package;
+          updateQuote();
+        });
+      });
+      document.getElementById("copy-quote").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(quoteText);
+          copyStatus.textContent = "Quote details copied. Paste them into your Discord message.";
+        } catch (error) {
+          copyStatus.textContent = "Couldn’t copy automatically. Please select and copy your quote details.";
+        }
+      });
+      copyItemPhotos.addEventListener("click", async () => {
+        const imageFiles = Array.from(itemPhotoInput.files)
+          .filter((file) => file.type.startsWith("image/"));
+        if (!imageFiles.length) {
+          copyItemPhotos.hidden = true;
+          copyStatus.textContent = "Select reference photos before copying.";
+          return;
+        }
+        const bitmaps = [];
+        try {
+          for (const file of imageFiles) {
+            bitmaps.push(await createImageBitmap(file));
+          }
+          const columns = Math.min(2, bitmaps.length);
+          const rows = Math.ceil(bitmaps.length / columns);
+          const tileSize = 512;
+          const gap = 16;
+          const canvas = document.createElement("canvas");
+          canvas.width = columns * tileSize + (columns + 1) * gap;
+          canvas.height = rows * tileSize + (rows + 1) * gap;
+          const context = canvas.getContext("2d");
+          if (!context) throw new Error("Could not prepare the selected photos for copying.");
+          context.fillStyle = "#ffffff";
+          context.fillRect(0, 0, canvas.width, canvas.height);
+          bitmaps.forEach((bitmap, index) => {
+            const scale = Math.min(tileSize / bitmap.width, tileSize / bitmap.height);
+            const width = bitmap.width * scale;
+            const height = bitmap.height * scale;
+            const column = index % columns;
+            const row = Math.floor(index / columns);
+            const x = gap + column * (tileSize + gap) + (tileSize - width) / 2;
+            const y = gap + row * (tileSize + gap) + (tileSize - height) / 2;
+            context.drawImage(bitmap, x, y, width, height);
+          });
+          const imageBlob = await new Promise((resolve, reject) => {
+            canvas.toBlob((blob) => {
+              if (blob) resolve(blob);
+              else reject(new Error("Could not create the combined photo image."));
+            }, "image/png");
+          });
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": imageBlob })]);
+          copyStatus.textContent = `${imageFiles.length} photo${imageFiles.length === 1 ? "" : "s"} copied together as one image. Paste it into your Discord ticket.`;
+        } catch (error) {
+          copyStatus.textContent = "Couldn’t copy the photos. Your browser may not allow image clipboard access.";
+        } finally {
+          bitmaps.forEach((bitmap) => bitmap.close());
+        }
+      });
+
+      updateQuote();
+    })();
+  </script>
+</body>
+</html>
