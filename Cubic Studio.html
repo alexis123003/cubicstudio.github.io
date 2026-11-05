@@ -719,7 +719,7 @@
       document.getElementById("copy-quote").addEventListener("click", async () => {
         try {
           await navigator.clipboard.writeText(quoteText);
-          copyStatus.textContent = "Quote details copied. Paste them into your Discord message.";
+          copyStatus.textContent = "Quote details copied. Paste them into your Discord ticket under #order-placement.";
         } catch (error) {
           copyStatus.textContent = "Couldn’t copy automatically. Please select and copy your quote details.";
         }
@@ -765,7 +765,7 @@
             }, "image/png");
           });
           await navigator.clipboard.write([new ClipboardItem({ "image/png": imageBlob })]);
-          copyStatus.textContent = `${imageFiles.length} photo${imageFiles.length === 1 ? "" : "s"} copied together as one image. Paste it into your Discord ticket.`;
+          copyStatus.textContent = `${imageFiles.length} photo${imageFiles.length === 1 ? "" : "s"} copied together as one image. Paste it into your Discord ticket in #order-placement.`;
         } catch (error) {
           copyStatus.textContent = "Couldn’t copy the photos. Your browser may not allow image clipboard access.";
         } finally {
